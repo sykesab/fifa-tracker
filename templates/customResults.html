@@ -1,0 +1,17 @@
+<h4>Custom Query Results:</h4>
+<table class="results_table">
+    <thead>
+        {% for header in headers %}
+        <th>{{ header }}</th>
+        {% endfor %}
+    </thead>
+    <tbody>
+        {% for row in data %}
+        <tr>
+            {% for item in row %}
+            <td>{{item}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

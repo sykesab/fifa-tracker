@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FIFA Dub Tracker</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <!-- Bootswatch United Theme -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.0/united/bootstrap.min.css" rel="stylesheet" integrity="sha384-h1Za54CnmmJzf7NmR8Ztwc+1fpFNNmt0Q9iprQpdKcF4JOjN2PeNFFzFuqBxrEL2" crossorigin="anonymous"> -->
+
+    <!-- Bootstrap JS, and Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
+
+    <!-- Custom JS -->
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="row">
+                <div class="col-md-12">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="/" class="active">Home</a>
+                            </li>
+                            <li>
+                                <a href="/viewStandings">View Standings</a>
+                            </li>
+                            <li>
+                                <a href="/showAddResult">Add Result</a>
+                            </li>
+                            <li>
+                                <a href="/showAddPlayer">Add New Player</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            <h1>FIFA Stats Tracker</h1>
+            <h2>Created by Aaron Sykes</h2>
+        </div>
+        <div class="body">
+            <p>
+                This is a temporary home page. Stuff works now.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

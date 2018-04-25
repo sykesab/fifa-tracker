@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FIFA Dub Tracker</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+
+    <!-- Bootswatch United Theme -->
+    <!-- <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.1.0/united/bootstrap.min.css" rel="stylesheet" integrity="sha384-h1Za54CnmmJzf7NmR8Ztwc+1fpFNNmt0Q9iprQpdKcF4JOjN2PeNFFzFuqBxrEL2" crossorigin="anonymous"> -->
+
+    <!-- Bootstrap JS, and Popper.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='stylesheets/style.css') }}" />
+
+    <!-- Custom JS -->
+    <script type="text/javascript">
+        $(function() {
+
+            // var playersLists = '<br /><label for="homePlayer">Home Player:&nbsp; </label>'
+            // +'<select name="homePlayer" id="homePlayer">'
+            // {% for item in data %}
+            // +'<option value="{{ item[0] }}">{{ item[1] }}</option>'
+            // {% endfor %}
+            // +'</select>'
+            // +'<br  />'
+            // +'<label for="awayPlayer">Away Player:&nbsp; </label>'
+            // +'<select name="awayPlayer" id="awayPlayer">'
+            // {% for item in data %}
+            // +'<option value="{{ item[0] }}">{{ item[1] }}</option>'
+            // {% endfor %}
+            // +'</select>'
+            // +'<br />'
+            //
+            // $(playersLists).insertAfter('#game');
+
+            $('#btnAddResult').click( function() {
+                $.ajax({
+                    url: '/addResult',
+                    data: $('form').serialize(),
+                    type: 'POST',
+                    success: function(response) {
+                        alert(response);
+                    },
+                    error: function(error) {
+                        alert(error);
+                    }
+                });
+            });
+
+            $("#captcha").keyup(function(event) {
+                if (event.keyCode === 13) {
+                    event.preventDefault();
+                    $("#btnAddResult").click();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    <li>
+                        <a href="/viewStandings">View Standings</a>
+                    </li>
+                    <li>
+                        <a href="/showAddResult" class="active">Add Result</a>
+                    </li>
+                    <li>
+                        <a href="/showAddPlayer">Add New Player</a>
+                    </li>
+                </ul>
+            </nav>
+            <h1>FIFA Stats Tracker</h1>
+            <h2>Add Results</h2>
+        </div>
+        <div class="body">
+            <h3>Game Info</h3>
+            <form>
+                <label for="game">Game: </label>
+                <select name="game" id="game">
+                    <option value="fifa17">FIFA 17</option>
+                    <option value="fifa18">FIFA 18</option>
+                    <option value="other">Other</option>
+                </select>
+                <br />
+                <label for="homePlayer">Home Player:&nbsp; </label>
+                <select name="homePlayer" id="homePlayer">
+                    {% for item in data %}
+                    <option value="{{ item[0] }}">{{ item[1] }}</option>
+                    {% endfor %}
+                </select>
+                <br  />
+                <label for="awayPlayer">Away Player:&nbsp; </label>
+                <select name="awayPlayer" id="awayPlayer">
+                    {% for item in data %}
+                    <option value="{{ item[0] }}">{{ item[1] }}</option>
+                    {% endfor %}
+                </select>
+                <br />
+                <label for="winner">Winner: </label>
+                <select name="winner" id="winner">
+                    <option value="draw">Draw</option>
+                    <option value="home">Home</option>
+                    <option value="away">Away</option>
+                </select>
+                <br />
+                <h4>Teams: </h4>
+                <ul>
+                    <li class="li_home">
+                        <h5>Home</h5>
+                        <label for="homeTeam">Team Name: </label>
+                        <input type="text" name="homeTeam" id="homeTeam" />
+                        <br />
+                        <label for="homeStars">Star Rating:</label>
+                        <input type="number" min=".5" max="5" step=".5" name="homeStars" id="homeStars" />
+                    </li>
+                    <li class="li_away">
+                        <h5>Away</h5>
+                        <label for="awayTeam">Team Name: </label>
+                        <input type="text" name="awayTeam" id="awayTeam" />
+                        <br />
+                        <label for="awayStars">Star Rating:</label>
+                        <input type="number" min=".5" max="5" step=".5" name="awayStars" id="awayStars" />
+                    </li>
+                </ul>
+                <h3>Stats</h3>
+                <ul>
+                    <li class="li_home">
+                        <h5>Home Team</h5>
+                        <label for="homeGoals">Goals: </label>
+                        <input type="number" min="0" name="homeGoals" id="homeGoals" />
+                        <br />
+                        <label for="homeShots">Shots: </label>
+                        <input type="number" min="0" name="homeShots" id="homeShots" />
+                        <br />
+                        <label for="homeShotsOnTarget">Shots on Target:</label>
+                        <input type="number" min="0" name="homeShotsOnTarget" id="homeShotsOnTarget" />
+                        <br />
+                        <label for="homePossession">Possession (%): </label>
+                        <input type="number" min="0" max="100" name="homePossession" id="homePossession" />
+                        <br />
+                        <label for="homeTackles">Tackles: </label>
+                        <input type="number" min="0" name="homeTackles" id="homeTackles" />
+                        <br />
+                        <label for="homeFouls">Fouls: </label>
+                        <input type="number" min="0" name="homeFouls" id="homeFouls" />
+                        <br />
+                        <label for="homeYellowCards">Yellow Cards: </label>
+                        <input type="number" min="0" name="homeYellowCards" id="homeYellowCards" />
+                        <br />
+                        <label for="homeRedCards">Red Cards: </label>
+                        <input type="number" min="0" name="homeRedCards" id="homeRedCards" />
+                        <br />
+                        <label for="homeInjuries">Injuries: </label>
+                        <input type="number" min="0" name="homeInjuries" id="homeInjuries" />
+                        <br />
+                        <label for="homeOffsides">Offsides: </label>
+                        <input type="number" min="0" name="homeOffsides" id="homeOffsides" />
+                        <br />
+                        <label for="homeCorners">Corners: </label>
+                        <input type="number" min="0" name="homeCorners" id="homeCorners" />
+                        <br />
+                        <label for="homeShotAccuracy">Shot Accuracy (%): </label>
+                        <input type="number" min="0" name="homeShotAccuracy" id="homeShotAccuracy" />
+                        <br />
+                        <label for="homePassAccuracy">Pass Accuracy (%): </label>
+                        <input type="number" min="0" name="homePassAccuracy" id="homePassAccuracy" />
+                    </li>
+                    <li class="li_away">
+                        <h5>Away Team</h5>
+                        <label for="awayGoals">Goals: </label>
+                        <input type="number" min="0" name="awayGoals" id="awayGoals" />
+                        <br />
+                        <label for="awayShots">Shots: </label>
+                        <input type="number" min="0" name="awayShots" id="awayShots" />
+                        <br />
+                        <label for="awayShotsOnTarget">Shots on Target:</label>
+                        <input type="number" min="0" name="awayShotsOnTarget" id="awayShotsOnTarget" />
+                        <br />
+                        <label for="awayPossession">Possession (%): </label>
+                        <input type="number" min="0" max="100" name="awayPossession" id="awayPossession" />
+                        <br />
+                        <label for="awayTackles">Tackles: </label>
+                        <input type="number" min="0" name="awayTackles" id="awayTackles" />
+                        <br />
+                        <label for="awayFouls">Fouls: </label>
+                        <input type="number" min="0" name="awayFouls" id="awayFouls" />
+                        <br />
+                        <label for="awayYellowCards">Yellow Cards: </label>
+                        <input type="number" min="0" name="awayYellowCards" id="awayYellowCards" />
+                        <br />
+                        <label for="awayRedCards">Red Cards: </label>
+                        <input type="number" min="0" name="awayRedCards" id="awayRedCards" />
+                        <br />
+                        <label for="awayInjuries">Injuries: </label>
+                        <input type="number" min="0" name="awayInjuries" id="awayInjuries" />
+                        <br />
+                        <label for="awayOffsides">Offsides: </label>
+                        <input type="number" min="0" name="awayOffsides" id="awayOffsides" />
+                        <br />
+                        <label for="awayCorners">Corners: </label>
+                        <input type="number" min="0" name="awayCorners" id="awayCorners" />
+                        <br />
+                        <label for="awayShotAccuracy">Shot Accuracy (%): </label>
+                        <input type="number" min="0" name="awayShotAccuracy" id="awayShotAccuracy" />
+                        <br />
+                        <label for="awayPassAccuracy">Pass Accuracy (%): </label>
+                        <input type="number" min="0" name="awayPassAccuracy" id="awayPassAccuracy" />
+                    </li>
+                </ul>
+                <label for="captcha">What is the apartment number?</label>
+                <input type="text" name="captcha" id="captcha" />
+                <br />
+                <button type="button" name="btnAddResult" id="btnAddResult">Add Result</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
