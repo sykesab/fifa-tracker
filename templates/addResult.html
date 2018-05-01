@@ -61,6 +61,18 @@
                     $("#btnAddResult").click();
                 }
             });
+            
+            $("#pkDiv").hide();     // Made sure div is hidden on page load
+            $("#pkCheck").click(function(event) {
+                if ($("#pkCheck").prop('checked')) {
+                   $("#pkDiv").show();
+                }
+                else {
+                    $("#pkDiv").hide();
+                    $("#homePK").val('');
+                    $("#awayPK").val('');
+                }
+            });
         });
     </script>
 </head>
@@ -129,6 +141,16 @@
                     <option value="away">Away</option>
                 </select>
                 <br />
+                <label for="pkCheck">Game ended in PKs: </label>
+                <input type="checkbox" name="pkCheck" id="pkCheck" />
+                <div id="pkDiv">
+                    <h5>Penalty Kick Score:</h5>
+                    <label for="homePK">Home: </label>
+                    <input type="number" name="homePK" id="homePK" min="0" />
+                    <br />
+                    <label for="awayPK">Away: </label>
+                    <input type="number" name="awayPK" id="awayPK" min="0" />
+                </div>
                 <h4>Teams: </h4>
                 <ul>
                     <li class="li_home">
