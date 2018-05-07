@@ -69,6 +69,8 @@ def addResult():
         _home_player = request.form['homePlayer']
         _away_player = request.form['awayPlayer']
         _result = request.form['winner']
+        _home_pk = request.form['homePK']
+        _away_pk = request.form['awayPK']
 
         _home_team = request.form['homeTeam']
         _home_stars = request.form['homeStars']
@@ -128,14 +130,14 @@ def addResult():
                     _winner = None
                     _loser = None
 
-                param_tuple = (_game, _home_player, _home_team, _home_stars, _home_won, _home_goals, _home_shots, _home_shotsOT, _home_poss, _home_tackles, _home_fouls, _home_yellows, _home_reds, _home_injuries, _home_offsides, _home_corners, _home_shot_acc, _home_pass_acc, _away_player, _away_team, _away_stars, _away_won, _away_goals, _away_shots, _away_shotsOT, _away_poss, _away_tackles, _away_fouls, _away_yellows, _away_reds, _away_injuries, _away_offsides, _away_corners, _away_shot_acc, _away_pass_acc, _winner, _loser)
+                param_tuple = (_game, _home_player, _home_team, _home_stars, _home_won, _home_goals, _home_shots, _home_shotsOT, _home_poss, _home_tackles, _home_fouls, _home_yellows, _home_reds, _home_injuries, _home_offsides, _home_corners, _home_shot_acc, _home_pass_acc, _away_player, _away_team, _away_stars, _away_won, _away_goals, _away_shots, _away_shotsOT, _away_poss, _away_tackles, _away_fouls, _away_yellows, _away_reds, _away_injuries, _away_offsides, _away_corners, _away_shot_acc, _away_pass_acc, _winner, _loser, _home_pk, _away_pk)
 
                 cursor.callproc('sp_add_result', param_tuple)
 
                 data = cursor.fetchall()
                 if len(data) == 0:
                     conn.commit()
-                    return json.dumps({'message': '<span>Result added successfully!</span>'})
+                    return json.dumps('Result added successfully!')
                 else:
                     return json.dumps({'error': str(data[0])})
 
